@@ -2,6 +2,7 @@ import flet as ft
 
 import flet_audio_recorder as far
 
+
 async def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.appbar = ft.AppBar(title=ft.Text("Audio Recorder"), center_title=True)
@@ -10,7 +11,7 @@ async def main(page: ft.Page):
 
     async def handle_start_recording(e):
         print(f"StartRecording: {path}")
-        await audio_rec.start_recording_async(path)
+        await audio_rec.start_recording(path)
 
     async def handle_stop_recording(e):
         output_path = await audio_rec.stop_recording_async()
