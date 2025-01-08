@@ -1,0 +1,36 @@
+[project]
+name = "flet-audio-recorder"
+version = "0.1.0"
+description = "AudioRecorder control for Flet"
+readme = "README.md"
+authors = [
+    { name = "Flet contributors", email = "hello@flet.dev" }
+]
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "flet>=0.25.2",
+]
+
+[project.urls]
+Homepage = "https://flet.dev"
+Documentation = "https://flet.dev/docs/controls/audiorecorder"
+Repository = "https://github.com/flet-dev/flet-audio-recorder"
+Issues = "https://github.com/flet-dev/flet-audio-recorder/issues"
+
+[tool.setuptools.package-data]
+"flutter.flet_audio_recorder" = ["**/*"]
+
+[tool.uv]
+dev-dependencies = [
+    "flet[all]>=0.25.2",
+]
+
+[tool.setuptools]
+license-files = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
