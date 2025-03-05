@@ -11,44 +11,18 @@ from flet.utils import deprecated
 
 
 class AudioRecorderState(Enum):
-    """
-    Enum representing the state of the audio recorder.
-
-    - **STOPPED**: The recorder is stopped.
-    - **RECORDING**: The recorder is actively recording.
-    - **PAUSED**: The recording is paused.
-    """
     STOPPED = "stopped"
     RECORDING = "recording"
     PAUSED = "paused"
 
 
 class AudioRecorderStateChangeEvent(ControlEvent):
-    """
-    Event that is triggered when the state of the AudioRecorder changes.
-
-    Attributes:
-        state (AudioRecorderState): The new state of the recorder.
-    """
     def __init__(self, e: ControlEvent):
         super().__init__(e.target, e.name, e.data, e.control, e.page)
         self.state: AudioRecorderState = AudioRecorderState(e.data)
 
 
 class AudioEncoder(Enum):
-    """
-    Enum for the different audio encoders supported by the AudioRecorder.
-
-    - **AACLC**: AAC Low Complexity
-    - **AACELD**: AAC Enhanced Low Delay
-    - **AACHE**: AAC High Efficiency
-    - **AMRNB**: AMR Narrowband
-    - **AMRWB**: AMR Wideband
-    - **OPUS**: Opus codec
-    - **FLAC**: Free Lossless Audio Codec
-    - **WAV**: Waveform Audio File Format
-    - **PCM16BITS**: 16-bit Pulse Code Modulation
-    """
     AACLC = "aacLc"
     AACELD = "aacEld"
     AACHE = "aacHe"
@@ -64,18 +38,8 @@ class AudioRecorder(Control):
     """
     A control that allows you to record audio from your device.
 
-    - **audio_encoder**: The audio encoder to use for recording. Default is `AudioEncoder.WAV`.
-    - **suppress_noise**: Whether to suppress noise during recording.
-    - **cancel_echo**: Whether to cancel echo during recording.
-    - **auto_gain**: Whether to enable automatic gain control.
-    - **channels_num**: The number of audio channels to record (1 or 2).
-    - **sample_rate**: The sample rate for audio recording.
-    - **bit_rate**: The bit rate for audio recording.
-    - **on_state_changed**: Event handler for state changes in the recorder.
-
-    -----
-
-    Online docs: https://flet.dev/docs/controls/audiorecorder
+    This control can record audio using different audio encoders and also allows configuration
+    of various audio recording parameters such as noise suppression, echo cancellation, and more.
     """
 
     def __init__(
@@ -120,13 +84,16 @@ class AudioRecorder(Control):
         self, output_path: str = None, wait_timeout: Optional[float] = 10
     ) -> bool:
         """
-        Starts the recording process.
+        Starts recording audio and saves it to the specified output path.
 
-        - **output_path**: The path where the audio file will be saved.
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 10 seconds.
+        If not on the web, the `output_path` parameter must be provided.
+
+        Args:
+            output_path: The file path where the audio will be saved. It must be specified if not on web.
+            wait_timeout: The time in seconds to wait for the recording to start. Default is 10.
 
         Returns:
-            bool: `True` if recording started successfully, `False` otherwise.
+            bool: `True` if recording was successfully started, `False` otherwise.
         """
         assert (
             self.page.web or output_path
@@ -141,12 +108,13 @@ class AudioRecorder(Control):
 
     def is_recording(self, wait_timeout: Optional[float] = 5) -> bool:
         """
-        Checks if the recorder is currently recording.
+        Checks whether the audio recorder is currently recording.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            bool: `True` if recording, `False` otherwise.
+            bool: `True` if the recorder is currently recording, `False` otherwise.
         """
         recording = self.invoke_method(
             "is_recording",
@@ -157,12 +125,13 @@ class AudioRecorder(Control):
 
     async def is_recording_async(self, wait_timeout: Optional[float] = 5) -> bool:
         """
-        Asynchronously checks if the recorder is currently recording.
+        Asynchronously checks whether the audio recorder is currently recording.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            bool: `True` if recording, `False` otherwise.
+            bool: `True` if the recorder is currently recording, `False` otherwise.
         """
         recording = await self.invoke_method_async(
             "is_recording",
@@ -173,12 +142,13 @@ class AudioRecorder(Control):
 
     def stop_recording(self, wait_timeout: Optional[float] = 5) -> Optional[str]:
         """
-        Stops the recording.
+        Stops the audio recording and optionally returns the path to the saved file.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            Optional[str]: The result of stopping the recording.
+            Optional[str]: The file path where the audio was saved or `None` if not applicable.
         """
         return self.invoke_method(
             "stop_recording",
@@ -190,12 +160,13 @@ class AudioRecorder(Control):
         self, wait_timeout: Optional[float] = 10
     ) -> Optional[str]:
         """
-        Asynchronously stops the recording.
+        Asynchronously stops the audio recording and optionally returns the path to the saved file.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 10 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 10.
 
         Returns:
-            Optional[str]: The result of stopping the recording.
+            Optional[str]: The file path where the audio was saved or `None` if not applicable.
         """
         return await self.invoke_method_async(
             "stop_recording",
@@ -205,9 +176,10 @@ class AudioRecorder(Control):
 
     def cancel_recording(self, wait_timeout: Optional[float] = 5) -> None:
         """
-        Cancels the current recording.
+        Cancels the current audio recording.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
         """
         self.invoke_method(
             "cancel_recording",
@@ -217,24 +189,25 @@ class AudioRecorder(Control):
 
     def resume_recording(self):
         """
-        Resumes the paused recording.
+        Resumes a paused audio recording.
         """
         self.invoke_method("resume_recording")
 
     def pause_recording(self):
         """
-        Pauses the current recording.
+        Pauses the ongoing audio recording.
         """
         self.invoke_method("pause_recording")
 
     def is_paused(self, wait_timeout: Optional[float] = 5) -> bool:
         """
-        Checks if the recorder is currently paused.
+        Checks whether the audio recorder is currently paused.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            bool: `True` if paused, `False` otherwise.
+            bool: `True` if the recorder is paused, `False` otherwise.
         """
         paused = self.invoke_method(
             "is_paused",
@@ -245,12 +218,13 @@ class AudioRecorder(Control):
 
     async def is_paused_async(self, wait_timeout: Optional[float] = 5) -> bool:
         """
-        Asynchronously checks if the recorder is currently paused.
+        Asynchronously checks whether the audio recorder is currently paused.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            bool: `True` if paused, `False` otherwise.
+            bool: `True` if the recorder is paused, `False` otherwise.
         """
         supported = await self.invoke_method_async(
             "is_paused",
@@ -263,10 +237,11 @@ class AudioRecorder(Control):
         self, encoder: AudioEncoder, wait_timeout: Optional[float] = 5
     ) -> bool:
         """
-        Checks if a specific audio encoder is supported.
+        Checks if the given audio encoder is supported by the recorder.
 
-        - **encoder**: The audio encoder to check.
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            encoder: The audio encoder to check.
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
             bool: `True` if the encoder is supported, `False` otherwise.
@@ -287,10 +262,11 @@ class AudioRecorder(Control):
         self, encoder: AudioEncoder, wait_timeout: Optional[float] = 5
     ) -> bool:
         """
-        Asynchronously checks if a specific audio encoder is supported.
+        Asynchronously checks if the given audio encoder is supported by the recorder.
 
-        - **encoder**: The audio encoder to check.
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            encoder: The audio encoder to check.
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
             bool: `True` if the encoder is supported, `False` otherwise.
@@ -309,12 +285,13 @@ class AudioRecorder(Control):
 
     def get_input_devices(self, wait_timeout: Optional[float] = 5) -> dict:
         """
-        Gets the available input devices for recording.
+        Retrieves the available input devices for recording.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            dict: A dictionary of input devices.
+            dict: A dictionary of available input devices.
         """
         devices = self.invoke_method(
             "get_input_devices",
@@ -325,12 +302,13 @@ class AudioRecorder(Control):
 
     async def get_input_devices_async(self, wait_timeout: Optional[float] = 5) -> dict:
         """
-        Asynchronously gets the available input devices for recording.
+        Asynchronously retrieves the available input devices for recording.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 5 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 5.
 
         Returns:
-            dict: A dictionary of input devices.
+            dict: A dictionary of available input devices.
         """
         devices = await self.invoke_method_async(
             "get_input_devices",
@@ -341,12 +319,13 @@ class AudioRecorder(Control):
 
     def has_permission(self, wait_timeout: Optional[float] = 10) -> bool:
         """
-        Checks if the necessary permissions for recording are granted.
+        Checks if the app has permission to record audio.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 10 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 10.
 
         Returns:
-            bool: `True` if permission is granted, `False` otherwise.
+            bool: `True` if the app has permission, `False` otherwise.
         """
         p = self.invoke_method(
             "has_permission",
@@ -357,12 +336,13 @@ class AudioRecorder(Control):
 
     async def has_permission_async(self, wait_timeout: Optional[float] = 10) -> bool:
         """
-        Asynchronously checks if the necessary permissions for recording are granted.
+        Asynchronously checks if the app has permission to record audio.
 
-        - **wait_timeout**: The timeout for the operation in seconds. Default is 10 seconds.
+        Args:
+            wait_timeout: The time in seconds to wait for the result. Default is 10.
 
         Returns:
-            bool: `True` if permission is granted, `False` otherwise.
+            bool: `True` if the app has permission, `False` otherwise.
         """
         p = await self.invoke_method_async(
             "has_permission",
@@ -375,113 +355,105 @@ class AudioRecorder(Control):
     @property
     def audio_encoder(self):
         """
-        Gets or sets the audio encoder to be used for recording.
+        The audio encoder to be used for recording.
 
-        Value is of type `AudioEncoder` and defaults to `AudioEncoder.WAV`.
+        Value is of type [`AudioEncoder`](https://flet.dev/docs/reference/types/audioencoder) 
+        and defaults to [`AudioEncoder.WAV`](https://flet.dev/docs/reference/types/audioencoder#wav).
         """
         return self._get_attr("audioEncoder")
 
     @audio_encoder.setter
     def audio_encoder(self, value: Optional[AudioEncoder]):
-        """
-        Sets the audio encoder to be used for recording.
-        """
         self._set_enum_attr("audioEncoder", value, AudioEncoder)
 
     # suppress_noise
     @property
     def suppress_noise(self) -> bool:
         """
-        Gets or sets whether noise suppression is enabled during recording.
+        Whether to suppress noise during recording.
 
-        Default is `False`.
+        Defaults to `False`.
+
+        If `True`, it reduces the background noise while recording.
         """
         return self._get_attr("suppressNoise", data_type="bool", def_value=False)
 
     @suppress_noise.setter
     def suppress_noise(self, value: Optional[bool]):
-        """
-        Sets whether noise suppression is enabled during recording.
-        """
         self._set_attr("suppressNoise", value)
 
     # cancel_echo
     @property
     def cancel_echo(self) -> bool:
         """
-        Gets or sets whether echo cancellation is enabled during recording.
+        Whether to cancel echo during recording.
 
-        Default is `False`.
+        Defaults to `False`.
+
+        If `True`, it reduces or cancels echo during recording.
         """
         return self._get_attr("cancelEcho", data_type="bool", def_value=False)
 
     @cancel_echo.setter
     def cancel_echo(self, value: Optional[bool]):
-        """
-        Sets whether echo cancellation is enabled during recording.
-        """
         self._set_attr("cancelEcho", value)
 
     # auto_gain
     @property
     def auto_gain(self) -> bool:
         """
-        Gets or sets whether automatic gain control is enabled during recording.
+        Whether to automatically adjust the audio gain during recording.
 
-        Default is `False`.
+        Defaults to `False`.
+
+        If `True`, the audio gain is automatically adjusted to avoid distortion or clipping.
         """
         return self._get_attr("autoGain", data_type="bool", def_value=False)
 
     @auto_gain.setter
     def auto_gain(self, value: Optional[bool]):
-        """
-        Sets whether automatic gain control is enabled during recording.
-        """
         self._set_attr("autoGain", value)
 
     # bit_rate
     @property
     def bit_rate(self) -> OptionalNumber:
         """
-        Gets or sets the bit rate for the audio recording.
+        The bit rate of the audio recording.
+
+        This value is specified in kilobits per second (kbps). Defaults to `None`.
         """
         return self._get_attr("bitRate")
 
     @bit_rate.setter
     def bit_rate(self, value: OptionalNumber):
-        """
-        Sets the bit rate for the audio recording.
-        """
         self._set_attr("bitRate", value)
 
     # sample_rate
     @property
     def sample_rate(self) -> OptionalNumber:
         """
-        Gets or sets the sample rate for the audio recording.
+        The sample rate for the audio recording.
+
+        This value is specified in Hertz (Hz). Defaults to `None`.
         """
         return self._get_attr("sampleRate")
 
     @sample_rate.setter
     def sample_rate(self, value: OptionalNumber):
-        """
-        Sets the sample rate for the audio recording.
-        """
         self._set_attr("sampleRate", value)
 
     # channels_num
     @property
     def channels_num(self) -> OptionalNumber:
         """
-        Gets or sets the number of channels for the audio recording (1 or 2).
+        The number of audio channels for the recording.
+
+        Can be `1` (mono) or `2` (stereo). Defaults to `None`.
         """
         return self._get_attr("channels")
 
     @channels_num.setter
     def channels_num(self, value: OptionalNumber):
-        """
-        Sets the number of channels for the audio recording (1 or 2).
-        """
         if value is None or value in (1, 2):
             self._set_attr("channels", value)
 
@@ -489,7 +461,9 @@ class AudioRecorder(Control):
     @property
     def on_state_changed(self):
         """
-        Gets or sets the event handler for state changes in the AudioRecorder.
+        Event handler that is triggered when the recording state changes.
+
+        This handler should accept an instance of [`AudioRecorderStateChangeEvent`](https://flet.dev/docs/reference/types/audiorecorderstatechangeevent).
         """
         return self.__on_state_changed.handler
 
@@ -497,8 +471,6 @@ class AudioRecorder(Control):
     def on_state_changed(
         self, handler: OptionalEventCallable[AudioRecorderStateChangeEvent]
     ):
-        """
-        Sets the event handler for state changes in the AudioRecorder.
-        """
         self.__on_state_changed.handler = handler
+
 
