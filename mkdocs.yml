@@ -2,6 +2,7 @@ site_name: AudioRecorder
 
 theme:
   name: "material"
+  favicon: 'docs/img/favicon.ico'
 
 plugins:
   - mkdocstrings
