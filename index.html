@@ -325,7 +325,10 @@
 
 
 <h1 id="audiorecorder-control-for-flet">AudioRecorder control for Flet</h1>
-<p><code>AudioRecorder</code> control for Flet.</p>
+<p>Audio recorder from microphone to a given file path. Works on macOS, Linux, Windows, iOS, Android and web.
+Based on the <a href="https://pub.dev/packages/record">record</a> Dart/Flutter package.</p>
+<p><strong>NOTE:</strong> On Linux, encoding is provided by <a href="https://stsaz.github.io/fmedia/">fmedia</a> which must be installed separately.</p>
+<p>AudioRecorder control is non-visual and should be added to <code>page.overlay</code> list.</p>
 <h2 id="installation">Installation</h2>
 <p>Add <code>flet-audio-recorder</code> as dependency to <code>pyproject.toml</code> of your Flet app:</p>
 <pre><code>dependencies = [
