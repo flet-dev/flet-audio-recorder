@@ -9,8 +9,6 @@
       
       
       
-        <link rel="prev" href="../audiorecorder/">
-      
       
       
       <link rel="icon" href="../images/favicon.ico">
@@ -18,7 +16,7 @@
     
     
       
-        <title>AudioEncoder - AudioRecorder</title>
+        <title>AudioRecorderStateChangeEvent - AudioRecorder</title>
       
     
     
@@ -62,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#audioencoder" class="md-skip">
+        <a href="#audiorecorderstatechangeevent" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AudioEncoder
+              AudioRecorderStateChangeEvent
             
           </span>
         </div>
@@ -191,31 +189,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    AudioEncoder
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../audioencoder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -225,35 +202,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#src.flet_audio_recorder.audio_recorder.AudioEncoder" class="md-nav__link">
-    <span class="md-ellipsis">
-      AudioEncoder
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -285,9 +233,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#src.flet_audio_recorder.audio_recorder.AudioEncoder" class="md-nav__link">
+  <a href="#src.flet_audio_recorder.audio_recorder.AudioRecorderStateChangeEvent" class="md-nav__link">
     <span class="md-ellipsis">
-      AudioEncoder
+      AudioRecorderStateChangeEvent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#src.flet_audio_recorder.audio_recorder.AudioRecorderStateChangeEvent.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__
     </span>
   </a>
   
@@ -309,84 +266,34 @@
 
 
 
-<h1 id="audioencoder">AudioEncoder</h1>
+<h1 id="audiorecorderstatechangeevent">AudioRecorderStateChangeEvent</h1>
 
 
 <div class="doc doc-object doc-class">
 
 
 
-<a id="src.flet_audio_recorder.audio_recorder.AudioEncoder"></a>
+<a id="src.flet_audio_recorder.audio_recorder.AudioRecorderStateChangeEvent"></a>
     <div class="doc doc-contents first">
             <p class="doc doc-class-bases">
-              Bases: <code><span title="enum.Enum">Enum</span></code></p>
+              Bases: <code><span title="flet.core.control_event.ControlEvent">ControlEvent</span></code></p>
 
-
-        <p>The <code>AudioEncoder</code> enum represents the different audio encoders supported by the audio recorder.</p>
-<p>The available encoders are:</p>
-<ul>
-<li><code>AACLC</code>: Advanced Audio Codec Low Complexity. A commonly used encoder for streaming and general audio recording.</li>
-<li><code>AACELD</code>: Advanced Audio Codec Enhanced Low Delay. Suitable for low-latency applications like VoIP.</li>
-<li><code>AACHE</code>: Advanced Audio Codec High Efficiency. Optimized for high-quality audio at lower bit rates.</li>
-<li><code>AMRNB</code>: Adaptive Multi-Rate Narrow Band. Used for speech audio in mobile communication.</li>
-<li><code>AMRWB</code>: Adaptive Multi-Rate Wide Band. Used for higher-quality speech audio.</li>
-<li><code>OPUS</code>: A codec designed for both speech and audio applications, known for its versatility.</li>
-<li><code>FLAC</code>: Free Lossless Audio Codec. Provides high-quality lossless audio compression.</li>
-<li><code>WAV</code>: Standard audio format used for raw, uncompressed audio data.</li>
-<li><code>PCM16BITS</code>: Pulse Code Modulation with 16-bit depth, used for high-fidelity audio.</li>
-</ul>
 
               <details class="quote">
                 <summary>Source code in <code>src/flet_audio_recorder/audio_recorder.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AudioEncoder</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The `AudioEncoder` enum represents the different audio encoders supported by the audio recorder.</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AudioRecorderStateChangeEvent</span><span class="p">(</span><span class="n">ControlEvent</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">ControlEvent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The current state of the audio recorder.</span>
 
-<span class="sd">    The available encoders are:</span>
-
-<span class="sd">    - `AACLC`: Advanced Audio Codec Low Complexity. A commonly used encoder for streaming and general audio recording.</span>
-<span class="sd">    - `AACELD`: Advanced Audio Codec Enhanced Low Delay. Suitable for low-latency applications like VoIP.</span>
-<span class="sd">    - `AACHE`: Advanced Audio Codec High Efficiency. Optimized for high-quality audio at lower bit rates.</span>
-<span class="sd">    - `AMRNB`: Adaptive Multi-Rate Narrow Band. Used for speech audio in mobile communication.</span>
-<span class="sd">    - `AMRWB`: Adaptive Multi-Rate Wide Band. Used for higher-quality speech audio.</span>
-<span class="sd">    - `OPUS`: A codec designed for both speech and audio applications, known for its versatility.</span>
-<span class="sd">    - `FLAC`: Free Lossless Audio Codec. Provides high-quality lossless audio compression.</span>
-<span class="sd">    - `WAV`: Standard audio format used for raw, uncompressed audio data.</span>
-<span class="sd">    - `PCM16BITS`: Pulse Code Modulation with 16-bit depth, used for high-fidelity audio.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">AACLC</span> <span class="o">=</span> <span class="s2">&quot;aacLc&quot;</span>
-    <span class="n">AACELD</span> <span class="o">=</span> <span class="s2">&quot;aacEld&quot;</span>
-    <span class="n">AACHE</span> <span class="o">=</span> <span class="s2">&quot;aacHe&quot;</span>
-    <span class="n">AMRNB</span> <span class="o">=</span> <span class="s2">&quot;amrNb&quot;</span>
-    <span class="n">AMRWB</span> <span class="o">=</span> <span class="s2">&quot;amrWb&quot;</span>
-    <span class="n">OPUS</span> <span class="o">=</span> <span class="s2">&quot;opus&quot;</span>
-    <span class="n">FLAC</span> <span class="o">=</span> <span class="s2">&quot;flac&quot;</span>
-    <span class="n">WAV</span> <span class="o">=</span> <span class="s2">&quot;wav&quot;</span>
-    <span class="n">PCM16BITS</span> <span class="o">=</span> <span class="s2">&quot;pcm16bits&quot;</span>
+<span class="sd">        Value is of type [AudioRecorderState](audiorecorderstate.md).&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">control</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">page</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">AudioRecorderState</span> <span class="o">=</span> <span class="n">AudioRecorderState</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -401,6 +308,39 @@
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="src.flet_audio_recorder.audio_recorder.AudioRecorderStateChangeEvent.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>The current state of the audio recorder.</p>
+<p>Value is of type <a href="../audiorecorderstate/">AudioRecorderState</a>.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>src/flet_audio_recorder/audio_recorder.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">ControlEvent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The current state of the audio recorder.</span>
+
+<span class="sd">    Value is of type [AudioRecorderState](audiorecorderstate.md).&quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">control</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">page</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">AudioRecorderState</span> <span class="o">=</span> <span class="n">AudioRecorderState</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 
 
