@@ -92,6 +92,7 @@ ft.app(main)
 
 ## Classes
 
-[AudioRecorder](audiorecorder.md)
+- [AudioRecorder](audiorecorder.md)
+- [AudioEncoder](audioencoder.md)
 
 
