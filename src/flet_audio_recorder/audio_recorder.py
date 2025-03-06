@@ -37,9 +37,6 @@ class AudioEncoder(Enum):
     - `FLAC`: Free Lossless Audio Codec. Provides high-quality lossless audio compression.
     - `WAV`: Standard audio format used for raw, uncompressed audio data.
     - `PCM16BITS`: Pulse Code Modulation with 16-bit depth, used for high-fidelity audio.
-
-    Value is of type [`AudioEncoder`](https://flet.dev/docs/reference/types/audioencoder) and defaults
-    to [`AudioEncoder.WAV`](https://flet.dev/docs/reference/types/audioencoder#wav).
     """
     AACLC = "aacLc"
     AACELD = "aacEld"
@@ -376,8 +373,8 @@ class AudioRecorder(Control):
         """
         The audio encoder to be used for recording.
 
-        Value is of type [`AudioEncoder`](https://flet.dev/docs/reference/types/audioencoder) 
-        and defaults to [`AudioEncoder.WAV`](https://flet.dev/docs/reference/types/audioencoder#wav).
+        Value is of type [`AudioEncoder`](audioencoder.md) 
+        and defaults to `AudioEncoder.WAV`.
         """
         return self._get_attr("audioEncoder")
 
