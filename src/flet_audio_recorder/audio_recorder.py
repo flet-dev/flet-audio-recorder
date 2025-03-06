@@ -11,6 +11,13 @@ from flet.utils import deprecated
 
 
 class AudioRecorderState(Enum):
+    """
+        The available AudioRecorder states are:
+
+    - `STOPPED`
+    - `RECORDING`
+    - `PAUSED`
+    """
     STOPPED = "stopped"
     RECORDING = "recording"
     PAUSED = "paused"
@@ -18,6 +25,9 @@ class AudioRecorderState(Enum):
 
 class AudioRecorderStateChangeEvent(ControlEvent):
     def __init__(self, e: ControlEvent):
+        """The current state of the audio recorder.
+
+        Value is of type [AudioRecorderState](audiorecorderstate.md)."""
         super().__init__(e.target, e.name, e.data, e.control, e.page)
         self.state: AudioRecorderState = AudioRecorderState(e.data)
 
@@ -479,7 +489,7 @@ class AudioRecorder(Control):
         """
         Event handler that is triggered when the recording state changes.
 
-        This handler should accept an instance of [`AudioRecorderStateChangeEvent`](https://flet.dev/docs/reference/types/audiorecorderstatechangeevent).
+        This handler should accept an instance of [`AudioRecorderStateChangeEvent`](audiorecorderstatechangeevent.md).
         """
         return self.__on_state_changed.handler
 

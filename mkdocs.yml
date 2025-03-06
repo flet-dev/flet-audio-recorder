@@ -1,7 +1,7 @@
 site_name: AudioRecorder
 
 theme:
-  name: mkdocs
+  name: material
   favicon: 'images/favicon.ico'
   logo: 'images/logo.svg'
 
