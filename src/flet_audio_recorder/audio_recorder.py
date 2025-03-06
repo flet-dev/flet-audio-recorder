@@ -23,6 +23,24 @@ class AudioRecorderStateChangeEvent(ControlEvent):
 
 
 class AudioEncoder(Enum):
+    """
+    The `AudioEncoder` enum represents the different audio encoders supported by the audio recorder.
+
+    The available encoders are:
+
+    - `AACLC`: Advanced Audio Codec Low Complexity. A commonly used encoder for streaming and general audio recording.
+    - `AACELD`: Advanced Audio Codec Enhanced Low Delay. Suitable for low-latency applications like VoIP.
+    - `AACHE`: Advanced Audio Codec High Efficiency. Optimized for high-quality audio at lower bit rates.
+    - `AMRNB`: Adaptive Multi-Rate Narrow Band. Used for speech audio in mobile communication.
+    - `AMRWB`: Adaptive Multi-Rate Wide Band. Used for higher-quality speech audio.
+    - `OPUS`: A codec designed for both speech and audio applications, known for its versatility.
+    - `FLAC`: Free Lossless Audio Codec. Provides high-quality lossless audio compression.
+    - `WAV`: Standard audio format used for raw, uncompressed audio data.
+    - `PCM16BITS`: Pulse Code Modulation with 16-bit depth, used for high-fidelity audio.
+
+    Value is of type [`AudioEncoder`](https://flet.dev/docs/reference/types/audioencoder) and defaults
+    to [`AudioEncoder.WAV`](https://flet.dev/docs/reference/types/audioencoder#wav).
+    """
     AACLC = "aacLc"
     AACELD = "aacEld"
     AACHE = "aacHe"
@@ -32,6 +50,7 @@ class AudioEncoder(Enum):
     FLAC = "flac"
     WAV = "wav"
     PCM16BITS = "pcm16bits"
+
 
 
 class AudioRecorder(Control):

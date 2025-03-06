@@ -1,4 +1,4 @@
-# AudioRecorder control for Flet
+# Getting Started
 
 Audio recorder from microphone to a given file path. Works on macOS, Linux, Windows, iOS, Android and web.
 Based on the [record](https://pub.dev/packages/record) Dart/Flutter package.

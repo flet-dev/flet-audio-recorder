@@ -1,3 +1,3 @@
-# AudioRecorder class
+# AudioRecorder
 
-:::src.flet_audio_recorder.audio_recorder
+:::src.flet_audio_recorder.audio_recorder.AudioRecorder

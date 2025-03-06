@@ -1,9 +1,14 @@
 site_name: AudioRecorder
 
 theme:
-  name: material
+  name: mkdocs
   favicon: 'images/favicon.ico'
   logo: 'images/logo.svg'
 
 plugins:
   - mkdocstrings
+
+nav:
+  - Getting Started: index.md
+  - AudioRecorder: audiorecorder.md
+  - AudioEncoder: audioencoder.md
