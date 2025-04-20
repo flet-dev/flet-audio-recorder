@@ -1,6 +1,6 @@
 [project]
 name = "flet-audio-recorder"
-version = "0.1.0"
+version = "0.2.0"
 description = "AudioRecorder control for Flet"
 readme = "README.md"
 authors = [
@@ -11,7 +11,7 @@ classifiers = [
 ]
 requires-python = ">=3.8"
 dependencies = [
-    "flet>=0.25.2",
+    "flet>=0.70.0",
 ]
 
 [project.urls]
@@ -25,14 +25,14 @@ Issues = "https://github.com/flet-dev/flet-audio-recorder/issues"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.25.2",
+    "flet[all]>=0.70.0",
     "mkdocs", 
     "mkdocs-material",
     "mkdocstrings[python]"
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.27.4"}
+flet = { extras = ["all"], version = "0.70.0" }
 mkdocs = "^1.0"
 mkdocstrings = { extras = ["python"], version = "^0.10" }
 mkdocs-material = "^8.0"

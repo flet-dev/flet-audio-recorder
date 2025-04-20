@@ -1,6 +1,12 @@
-from flet_audio_recorder.audio_recorder import (
+from .audio_recorder import AudioRecorder
+from .types import (
+    AndroidAudioSource,
+    AndroidRecordConfiguration,
     AudioEncoder,
-    AudioRecorder,
+    AudioRecorderConfiguration,
     AudioRecorderState,
     AudioRecorderStateChangeEvent,
+    InputDevice,
+    IosAudioCategoryOption,
+    IosRecordConfiguration,
 )
