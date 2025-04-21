@@ -3,7 +3,7 @@ name = "audio_recorder_example"
 version = "1.0.0"
 description = ""
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = [
   "flet-audio-recorder @ git+https://github.com/flet-dev/flet-audio-recorder.git",
   "flet>=0.25.2",
