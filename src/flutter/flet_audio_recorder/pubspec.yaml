@@ -13,9 +13,14 @@ dependencies:
     sdk: flutter
 
   collection: ^1.16.0
-  record: ^6.0.0
+  record: 6.0.0
 
-  flet: ^0.25.2
+  # flet: ^0.25.2
+  flet:
+    git:
+      path: packages/flet
+      ref: v1
+      url: https://github.com/flet-dev/flet.git
 
 dev_dependencies:
   flutter_test:

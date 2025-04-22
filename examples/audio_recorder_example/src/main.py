@@ -53,15 +53,15 @@ async def main(page: ft.Page):
     page.overlay.append(audio_rec)
     await page.update_async()
 
-    await page.add_async(
-        ft.ElevatedButton("Start Audio Recorder", on_click=handle_start_recording),
-        ft.ElevatedButton("Stop Audio Recorder", on_click=handle_stop_recording),
-        ft.ElevatedButton("List Devices", on_click=handle_list_devices),
-        ft.ElevatedButton("Pause Recording", on_click=handle_pause),
-        ft.ElevatedButton("Resume Recording", on_click=handle_resume),
-        ft.ElevatedButton("Test AudioEncodings", on_click=handle_audio_encoding_test),
-        ft.ElevatedButton("Has Permission", on_click=handle_has_permission),
+    await page.add(
+        ft.Button("Start Audio Recorder", on_click=handle_start_recording),
+        ft.Button("Stop Audio Recorder", on_click=handle_stop_recording),
+        ft.Button("List Devices", on_click=handle_list_devices),
+        ft.Button("Pause Recording", on_click=handle_pause),
+        ft.Button("Resume Recording", on_click=handle_resume),
+        ft.Button("Test AudioEncodings", on_click=handle_audio_encoding_test),
+        ft.Button("Has Permission", on_click=handle_has_permission),
     )
 
 
-ft.app(main)
+ft.run(main)
