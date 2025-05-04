@@ -1,28 +1,18 @@
 [project]
 name = "audio_recorder_example"
 version = "1.0.0"
-description = ""
+description = "Flet AudioRecorder Example"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
   "flet-audio-recorder",
   "flet",
 ]
-
-
+# Docs: https://flet.dev/docs/publish
 [tool.flet]
-# org name in reverse domain name notation, e.g. "com.mycompany".
-# Combined with project.name to build bundle ID for iOS and Android apps
 org = "com.mycompany"
-
-# project display name that is used as an app title on Android and iOS home screens,
-# shown in window titles and about app dialogs on desktop.
-product = "Flet Audio Example"
-
-# company name to display in about app dialogs
+product = "Flet AudioRecorder Example"
 company = "Flet"
-
-# copyright text to display in about app dialogs
 copyright = "Copyright (C) 2024 by Flet"
 
 [tool.flet.app]
