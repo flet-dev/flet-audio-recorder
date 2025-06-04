@@ -38,9 +38,15 @@ class AudioRecorderService extends FletService {
     debugPrint("AudioRecorder.$name($args)");
     switch (name) {
       case "start_recording":
-        var config = parseRecordConfig(args["configuration"]);
+        final config = parseRecordConfig(args["configuration"]);
         if (config != null && await recorder!.hasPermission()) {
-          await recorder!.start(config, path: args["output_path"] ?? "");
+          final out = control.backend.getAssetSource(args["output_path"] ?? "");
+          if (!isWebPlatform() && !out.isFile) {
+            // on non-web/IO platforms, the output path must be a valid file path
+            return false;
+          }
+
+          await recorder!.start(config, path: out.path);
           return true;
         }
         return false;
