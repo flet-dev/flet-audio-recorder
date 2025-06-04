@@ -15,7 +15,7 @@ __all__ = ["AudioRecorder"]
 
 
 @ft.control("AudioRecorder")
-class AudioRecorder(ft.Control):
+class AudioRecorder(ft.Service):
     """
     A control that allows you to record audio from your device.
 
@@ -23,15 +23,15 @@ class AudioRecorder(ft.Control):
     of various audio recording parameters such as noise suppression, echo cancellation, and more.
     """
 
-    default_configuration: AudioRecorderConfiguration = field(
-        default_factory=AudioRecorderConfiguration
+    configuration: AudioRecorderConfiguration = field(
+        default_factory=lambda: AudioRecorderConfiguration()
     )
     on_state_change: ft.OptionalEventCallable[AudioRecorderStateChangeEvent] = None
 
     async def start_recording_async(
         self,
-        configuration: Optional[AudioRecorderConfiguration] = None,
         output_path: str = None,
+        configuration: Optional[AudioRecorderConfiguration] = None,
     ) -> bool:
         """
         Starts recording audio and saves it to the specified output path.
@@ -39,7 +39,10 @@ class AudioRecorder(ft.Control):
         If not on the web, the `output_path` parameter must be provided.
 
         Args:
-            output_path: The file path where the audio will be saved. It must be specified if not on web.
+            output_path: The file path where the audio will be saved.
+                It must be specified if not on web.
+            configuration: The configuration for the audio recorder.
+                If `None`, the `AudioRecorder.configuration` will be used.
         Returns:
             bool: `True` if recording was successfully started, `False` otherwise.
         """
@@ -49,8 +52,10 @@ class AudioRecorder(ft.Control):
         return await self._invoke_method_async(
             "start_recording",
             {
-                "configuration": configuration or self.default_configuration,
                 "output_path": output_path,
+                "configuration": configuration
+                if configuration is not None
+                else self.configuration,
             },
         )
 
