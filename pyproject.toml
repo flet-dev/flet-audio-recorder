@@ -1,11 +1,9 @@
 [project]
 name = "flet-audio-recorder"
 version = "0.2.0"
-description = "AudioRecorder control for Flet"
+description = "Adds audio recording support to Flet apps."
 readme = "README.md"
-authors = [
-    { name = "Flet contributors", email = "hello@flet.dev" }
-]
+authors = [{ name = "Flet contributors", email = "hello@flet.dev" }]
 license = "Apache-2.0"
 requires-python = ">=3.10"
 dependencies = [
@@ -14,7 +12,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://flet.dev"
-Documentation = "https://flet.dev/docs/controls/audiorecorder"
+Documentation = "https://flet-dev.github.io/flet-audio-recorder"
 Repository = "https://github.com/flet-dev/flet-audio-recorder"
 Issues = "https://github.com/flet-dev/flet-audio-recorder/issues"
 

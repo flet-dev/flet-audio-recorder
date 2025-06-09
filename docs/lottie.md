@@ -1,0 +1,1 @@
+::: flet_lottie.lottie.Lottie
