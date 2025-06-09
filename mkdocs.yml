@@ -76,7 +76,7 @@ nav:
   - Getting Started: index.md
   - API Reference:
       - AudioRecorder: audio_recorder.md
-    - Types:
+      - Types:
         - AndroidAudioSource: android_audio_source.md
         - AndroidRecorderConfiguration: android_recorder_configuration.md
         - AudioEncoder: audio_encoder.md
