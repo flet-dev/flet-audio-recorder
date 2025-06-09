@@ -19,21 +19,24 @@ Issues = "https://github.com/flet-dev/flet-audio-recorder/issues"
 [tool.setuptools.package-data]
 "flutter.flet_audio_recorder" = ["**/*"]
 
-[tool.uv]
-dev-dependencies = [
-    "flet",
-    "flet-cli",
-    "flet-desktop",
-    "mkdocs", 
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+]
+docs = [
+    "mkdocs",
     "mkdocs-material",
     "mkdocstrings[python]",
-    "pre-commit>=4.2.0",
+    "mkdocstrings-python-xref",
+    "mike",
+    "markdown>=3.6",
+    "pymdown-extensions",
+    "mkdocs-glightbox",
+    "pygments>=2.16",
 ]
 
 [tool.uv.sources]
 flet = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet", rev = "v1" }
-flet-cli = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet-cli", rev = "v1" }
-flet-desktop = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet-desktop", rev = "v1" }
 
 [build-system]
 requires = ["setuptools"]
