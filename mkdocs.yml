@@ -75,7 +75,7 @@ extra:
 nav:
   - Getting Started: index.md
   - API Reference:
-    - AudioRecorder: audiorecorder.md
+      - AudioRecorder: audio_recorder.md
     - Types:
         - AndroidAudioSource: android_audio_source.md
         - AndroidRecorderConfiguration: android_recorder_configuration.md
@@ -128,6 +128,7 @@ plugins:
             show_category_heading: false
             show_labels: false
             show_if_no_docstring: true
+            docstring_section_style: spacy
             filters:
               - "!^_"   # Exclude private members starting with only one underscore
               - "!before_update"  # Exclude before_update method

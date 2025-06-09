@@ -22,7 +22,8 @@ class AudioRecorder(ft.Service):
     This control can record audio using different audio encoders and also allows configuration
     of various audio recording parameters such as noise suppression, echo cancellation, and more.
 
-    This control is non-visual and should be added to `Page.services` list before being used.
+    Note:
+        This control is non-visual and should be added to `page.services` list before it can be used.
     """
 
     configuration: AudioRecorderConfiguration = field(
