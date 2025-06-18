@@ -16,9 +16,7 @@ dependencies:
   collection: ^1.16.0
   record: 6.0.0
 
-  # flet: ^0.70.0
-  flet:
-    path: /Users/ndonkohenri/PycharmProjects/flet-dev/flet/packages/flet
+  flet: ^0.28.3
 
 dev_dependencies:
   flutter_test:
