@@ -23,13 +23,24 @@ class AudioRecorder(ft.Service):
     of various audio recording parameters such as noise suppression, echo cancellation, and more.
 
     Note:
-        This control is non-visual and should be added to `page.services` list before it can be used.
+        This control is non-visual and should be added to `Page.services` list before it can be used.
     """
 
     configuration: AudioRecorderConfiguration = field(
         default_factory=lambda: AudioRecorderConfiguration()
     )
-    on_state_change: ft.OptionalEventCallable[AudioRecorderStateChangeEvent] = None
+    """
+    The default configuration of the audio recorder.
+    """
+
+    on_state_change: ft.OptionalEventHandler[
+        AudioRecorderStateChangeEvent["AudioRecorder"]
+    ] = None
+    """
+    Event handler that is called when the state of the audio recorder changes.
+    
+    Event handler argument is of type [`AudioRecorderStateChangeEvent`][(p).].
+    """
 
     async def start_recording_async(
         self,

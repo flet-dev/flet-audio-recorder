@@ -1,5 +1,5 @@
 [project]
-name = "audio_recorder_example"
+name = "flet-audio-recorder-example"
 version = "1.0.0"
 description = "Flet AudioRecorder Example"
 readme = "README.md"
@@ -11,26 +11,9 @@ dependencies = [
 # Docs: https://flet.dev/docs/publish
 [tool.flet]
 org = "com.mycompany"
-product = "Flet AudioRecorder Example"
+product = "flet-audio-recorder-example"
 company = "Flet"
 copyright = "Copyright (C) 2024 by Flet"
 
 [tool.flet.app]
 path = "src"
-
-[tool.flet.dev_packages]
-flet-audio-recorder = "../.." # relative path
-flet = "git+https://github.com/flet-dev/flet.git@v1#subdirectory=sdk/python/packages/flet"
-
-[tool.uv]
-dev-dependencies = [
-    "flet",
-    "flet-cli",
-    "flet-desktop",
-]
-
-[tool.uv.sources]
-flet-audio-recorder = { path = "../../", editable = true }
-flet = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet", rev = "v1" }
-flet-cli = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet-cli", rev = "v1" }
-flet-desktop = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet-desktop", rev = "v1" }

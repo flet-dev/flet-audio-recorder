@@ -26,7 +26,7 @@ class AudioRecorderState(Enum):
 
 
 @dataclass
-class AudioRecorderStateChangeEvent(ft.ControlEvent):
+class AudioRecorderStateChangeEvent(ft.Event[ft.EventControlType]):
     state: AudioRecorderState
     """The new state of the audio recorder."""
 
@@ -144,8 +144,6 @@ class AndroidRecorderConfiguration:
     
     While advanced recorder (the default) unlocks additionnal features, 
     the legacy recorder is stability oriented.
-
-    Defaults to `False`.
     """
 
     mute_audio: bool = False
@@ -155,15 +153,11 @@ class AndroidRecorderConfiguration:
     This is useful when you want to record audio without any background noise.
     The streams are restored to their previous state after recording is stopped
     and will stay at current state on pause/resume.
-
-    Defaults to `False`.
     """
 
     manage_bluetooth: bool = True
     """
     Try to start a bluetooth audio connection to a headset (Bluetooth SCO).
-    
-    Defaults to `True`.
     """
 
     audio_source: AndroidAudioSource = AndroidAudioSource.DEFAULT_SOURCE
@@ -174,8 +168,6 @@ class AndroidRecorderConfiguration:
     Some effects are available or not depending on this source.
     
     Most of the time, you should use `AndroidAudioSource.DEFAULT_SOURCE` or `AndroidAudioSource.MIC`.
-
-    Defaults to `AndroidAudioSource.DEFAULT_SOURCE`.
     """
 
 
@@ -250,8 +242,6 @@ class IosRecorderConfiguration:
     )
     """
     Optional audio behaviors.
-    
-    Defaults to `[IosAudioCategoryOption.DEFAULT_TO_SPEAKER, IosAudioCategoryOption.ALLOW_BLUETOOTH, IosAudioCategoryOption.ALLOW_BLUETOOTH_A2DP]`.
     """
 
     manage_audio_session: bool = True
@@ -259,8 +249,6 @@ class IosRecorderConfiguration:
     Whether to manage the shared AVAudioSession.
     
     Set this to `false` if another plugin is already managing the AVAudioSession.
-    
-    Defaults to `True`.
     """
 
 
@@ -282,8 +270,6 @@ class AudioRecorderConfiguration:
     encoder: AudioEncoder = AudioEncoder.WAV
     """
     The requested output format through this given encoder.
-    
-    Defaults to `AudioEncoder.WAV`.
     """
 
     suppress_noise: bool = False
@@ -291,8 +277,6 @@ class AudioRecorderConfiguration:
     The recorder will try to negates the input noise (if available on the device).
     
     Recording volume may be lowered by using this.
-    
-    Defaults to `False`.
     """
 
     cancel_echo: bool = False
@@ -300,8 +284,6 @@ class AudioRecorderConfiguration:
     The recorder will try to reduce echo (if available on the device).
     
     Recording volume may be lowered by using this.
-    
-    Defaults to `False`.
     """
 
     auto_gain: bool = False
@@ -310,30 +292,22 @@ class AudioRecorderConfiguration:
     limited range (if available on the device).
 
     Recording volume may be lowered by using this.
-    
-    Defaults to `False`.
     """
 
     channels: int = 2
     """
     The numbers of channels for the recording: `1` = mono, `2` = stereo
     Most platforms only accept 2 at most.
-    
-    Defaults to `2`.
     """
 
     sample_rate: int = 44100
     """
     The sample rate for audio in samples per second if applicable.
-    
-    Defaults to ``.
     """
 
     bit_rate: ft.Number = 128000
     """
     The audio encoding bit rate in bits per second if applicable.
-    
-    Defaults to `128000`.
     """
 
     device: Optional[InputDevice] = None
@@ -347,8 +321,6 @@ class AudioRecorderConfiguration:
     )
     """
     Android specific configuration.
-    
-    Defaults to `AndroidRecorderConfiguration()`.
     """
 
     ios_configuration: IosRecorderConfiguration = field(
@@ -356,6 +328,4 @@ class AudioRecorderConfiguration:
     )
     """
     iOS specific configuration.
-    
-    Defaults to `IosRecorderConfiguration()`.
     """
