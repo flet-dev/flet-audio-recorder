@@ -21,8 +21,13 @@ class AudioRecorderState(Enum):
     """State of the audio recorder."""
 
     STOPPED = "stopped"
+    """The audio recorder is stopped and not recording."""
+
     RECORDING = "recording"
+    """The audio recorder is currently recording audio."""
+
     PAUSED = "paused"
+    """The audio recorder is paused and can be resumed."""
 
 
 @dataclass

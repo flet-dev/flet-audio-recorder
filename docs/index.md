@@ -36,16 +36,17 @@ To install the `flet-audio-recorder` package and add it to your project dependen
     ```bash
     pip install flet-audio-recorder  # (1)!
     ```
+    
+    1. After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
 
 === "poetry"
     ```bash
     poetry add flet-audio-recorder
     ```
 
-???+ warning
+???+ note
     On Linux, encoding is provided by [fmedia](https://stsaz.github.io/fmedia/) which must be installed separately.
 
-1. After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
 
 ## Example
 

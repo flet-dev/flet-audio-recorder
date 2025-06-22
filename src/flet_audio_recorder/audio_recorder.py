@@ -46,6 +46,7 @@ class AudioRecorder(ft.Service):
         self,
         output_path: Optional[str] = None,
         configuration: Optional[AudioRecorderConfiguration] = None,
+        timeout: Optional[float] = 10,
     ) -> bool:
         """
         Starts recording audio and saves it to the specified output path.
@@ -57,6 +58,7 @@ class AudioRecorder(ft.Service):
                 It must be specified if not on web.
             configuration: The configuration for the audio recorder.
                 If `None`, the `AudioRecorder.configuration` will be used.
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             bool: `True` if recording was successfully started, `False` otherwise.
         """
@@ -64,109 +66,138 @@ class AudioRecorder(ft.Service):
             self.page.web or output_path
         ), "output_path must be provided on platforms other than web"
         return await self._invoke_method_async(
-            "start_recording",
-            {
+            method_name="start_recording",
+            arguments={
                 "output_path": output_path,
                 "configuration": configuration
                 if configuration is not None
                 else self.configuration,
             },
+            timeout=timeout,
         )
 
-    async def is_recording_async(self) -> bool:
+    async def is_recording_async(self, timeout: Optional[float] = 10) -> bool:
         """
-        Asynchronously checks whether the audio recorder is currently recording.
+        Checks whether the audio recorder is currently recording.
 
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             bool: `True` if the recorder is currently recording, `False` otherwise.
         """
-        return await self._invoke_method_async("is_recording")
+        return await self._invoke_method_async("is_recording", timeout=timeout)
 
-    async def stop_recording_async(self) -> Optional[str]:
+    async def stop_recording_async(self, timeout: Optional[float] = 10) -> Optional[str]:
         """
-        Asynchronously stops the audio recording and optionally returns the path to the saved file.
+        Stops the audio recording and optionally returns the path to the saved file.
 
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             Optional[str]: The file path where the audio was saved or `None` if not applicable.
         """
-        return await self._invoke_method_async("stop_recording")
+        return await self._invoke_method_async("stop_recording", timeout=timeout)
 
-    async def cancel_recording_async(self):
+    async def cancel_recording_async(self, timeout: Optional[float] = 10):
         """
         Cancels the current audio recording.
-        """
-        await self._invoke_method_async("cancel_recording")
 
-    def cancel_recording(self):
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
+        """
+        await self._invoke_method_async("cancel_recording", timeout=timeout)
+
+    def cancel_recording(self, timeout: Optional[float] = 10):
         """
         Cancels the current audio recording.
-        """
-        asyncio.create_task(self.cancel_recording_async())
 
-    async def resume_recording_async(self):
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
+        """
+        asyncio.create_task(self.cancel_recording_async(timeout=timeout))
+
+    async def resume_recording_async(self, timeout: Optional[float] = 10):
         """
         Resumes a paused audio recording.
-        """
-        await self._invoke_method_async("resume_recording")
 
-    def resume_recording(self):
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
+        """
+        await self._invoke_method_async("resume_recording", timeout=timeout)
+
+    def resume_recording(self, timeout: Optional[float] = 10):
         """
         Resumes a paused audio recording.
-        """
-        asyncio.create_task(self.resume_recording_async())
 
-    async def pause_recording_async(self):
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
+        """
+        asyncio.create_task(self.resume_recording_async(timeout=timeout))
+
+    async def pause_recording_async(self, timeout: Optional[float] = 10):
         """
         Pauses the ongoing audio recording.
-        """
-        await self._invoke_method_async("pause_recording")
 
-    def pause_recording(self):
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
+        """
+        await self._invoke_method_async("pause_recording", timeout=timeout)
+
+    def pause_recording(self, timeout: Optional[float] = 10):
         """
         Pauses the ongoing audio recording.
-        """
-        asyncio.create_task(self.pause_recording_async())
 
-    async def is_paused_async(self) -> bool:
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         """
-        Asynchronously checks whether the audio recorder is currently paused.
+        asyncio.create_task(self.pause_recording_async(timeout=timeout))
 
+    async def is_paused_async(self, timeout: Optional[float] = 10) -> bool:
+        """
+        Checks whether the audio recorder is currently paused.
+
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             bool: `True` if the recorder is paused, `False` otherwise.
         """
-        return await self._invoke_method_async("is_paused")
+        return await self._invoke_method_async("is_paused", timeout=timeout)
 
-    async def is_supported_encoder_async(self, encoder: AudioEncoder) -> bool:
+    async def is_supported_encoder_async(self, encoder: AudioEncoder, timeout: Optional[float] = 10) -> bool:
         """
-        Asynchronously checks if the given audio encoder is supported by the recorder.
+        Checks if the given audio encoder is supported by the recorder.
 
         Args:
             encoder: The audio encoder to check.
-
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             bool: `True` if the encoder is supported, `False` otherwise.
         """
         return await self._invoke_method_async(
-            "is_supported_encoder", {"encoder": encoder}
+            "is_supported_encoder", {"encoder": encoder}, timeout=timeout
         )
 
-    async def get_input_devices_async(self) -> List[InputDevice]:
+    async def get_input_devices_async(self, timeout: Optional[float] = 10) -> List[InputDevice]:
         """
-        Asynchronously retrieves the available input devices for recording.
+        Retrieves the available input devices for recording.
 
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             dict: A dictionary of available input devices.
         """
-        r = await self._invoke_method_async("get_input_devices")
+        r = await self._invoke_method_async("get_input_devices", timeout=timeout)
         return [
             InputDevice(id=device_id, label=label) for device_id, label in r.items()
         ]
 
-    async def has_permission_async(self) -> bool:
+    async def has_permission_async(self, timeout: Optional[float] = 10) -> bool:
         """
-        Asynchronously checks if the app has permission to record audio.
+        Checks if the app has permission to record audio.
 
+        Args:
+            timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
             bool: `True` if the app has permission, `False` otherwise.
         """
-        return await self._invoke_method_async("has_permission")
+        return await self._invoke_method_async("has_permission", timeout=timeout)
