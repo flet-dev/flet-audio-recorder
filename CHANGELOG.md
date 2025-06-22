@@ -12,13 +12,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Deployed online documentation: https://flet-dev.github.io/flet-audiorecorder/
 - `AudioRecorder` control new property: `configuration`
 - New dataclasses:
-  - `AudioRecorderConfiguration`
-  - `AndroidRecorderConfiguration`
-  - `IosRecorderConfiguration`
-  - `InputDevice`
+    - `AudioRecorderConfiguration`
+    - `AndroidRecorderConfiguration`
+    - `IosRecorderConfiguration`
+    - `InputDevice`
 - New enums:
-  - `AndroidAudioSource`
-  - `IosAudioCategoryOption`
+    - `AndroidAudioSource`
+    - `IosAudioCategoryOption`
 
 ### Changed
 
@@ -31,15 +31,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Event `on_state_changed` renamed to `on_state_change`
 - In all methods, parameter `wait_timeout` was renamed to `timeout`.
 - The following sync methods were removed from `AudioRecorder` (use corresponding async methods instead):
-  - `is_recording` → `is_recording_async`
-  - `stop_recording` → `stop_recording_async`
-  - `cancel_recording` → `cancel_recording_async`
-  - `resume_recording` → `resume_recording_async`
-  - `pause_recording` → `pause_recording_async`
-  - `is_paused` → `is_paused_async`
-  - `is_supported_encoder` → `is_supported_encoder_async`
-  - `get_input_devices` → `get_input_devices_async`
-  - `has_permission` → `has_permission_async`
+    - `is_recording` → `is_recording_async`
+    - `stop_recording` → `stop_recording_async`
+    - `cancel_recording` → `cancel_recording_async`
+    - `resume_recording` → `resume_recording_async`
+    - `pause_recording` → `pause_recording_async`
+    - `is_paused` → `is_paused_async`
+    - `is_supported_encoder` → `is_supported_encoder_async`
+    - `get_input_devices` → `get_input_devices_async`
+    - `has_permission` → `has_permission_async`
 
 ## [0.1.0] - 2025-01-15
 

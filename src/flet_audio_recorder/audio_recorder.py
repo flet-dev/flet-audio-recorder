@@ -60,7 +60,9 @@ class AudioRecorder(ft.Service):
                 If `None`, the `AudioRecorder.configuration` will be used.
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            bool: `True` if recording was successfully started, `False` otherwise.
+            `True` if recording was successfully started, `False` otherwise.
+        Raises:
+            TimeoutError: If the request times out.
         """
         assert (
             self.page.web or output_path
@@ -83,7 +85,9 @@ class AudioRecorder(ft.Service):
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            bool: `True` if the recorder is currently recording, `False` otherwise.
+            `True` if the recorder is currently recording, `False` otherwise.
+        Raises:
+            TimeoutError: If the request times out.
         """
         return await self._invoke_method_async("is_recording", timeout=timeout)
 
@@ -94,7 +98,9 @@ class AudioRecorder(ft.Service):
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            Optional[str]: The file path where the audio was saved or `None` if not applicable.
+            The file path where the audio was saved or `None` if not applicable.
+        Raises:
+            TimeoutError: If the request times out.
         """
         return await self._invoke_method_async("stop_recording", timeout=timeout)
 
@@ -104,6 +110,8 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        Raises:
+            TimeoutError: If the request times out.
         """
         await self._invoke_method_async("cancel_recording", timeout=timeout)
 
@@ -113,6 +121,8 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        Raises:
+            TimeoutError: If the request times out.
         """
         asyncio.create_task(self.cancel_recording_async(timeout=timeout))
 
@@ -122,6 +132,8 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        Raises:
+            TimeoutError: If the request times out.
         """
         await self._invoke_method_async("resume_recording", timeout=timeout)
 
@@ -131,6 +143,8 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        Raises:
+            TimeoutError: If the request times out.
         """
         asyncio.create_task(self.resume_recording_async(timeout=timeout))
 
@@ -140,6 +154,8 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        Raises:
+            TimeoutError: If the request times out.
         """
         await self._invoke_method_async("pause_recording", timeout=timeout)
 
@@ -149,6 +165,8 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+        Raises:
+            TimeoutError: If the request times out.
         """
         asyncio.create_task(self.pause_recording_async(timeout=timeout))
 
@@ -159,7 +177,9 @@ class AudioRecorder(ft.Service):
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            bool: `True` if the recorder is paused, `False` otherwise.
+            `True` if the recorder is paused, `False` otherwise.
+        Raises:
+            TimeoutError: If the request times out.
         """
         return await self._invoke_method_async("is_paused", timeout=timeout)
 
@@ -171,7 +191,9 @@ class AudioRecorder(ft.Service):
             encoder: The audio encoder to check.
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            bool: `True` if the encoder is supported, `False` otherwise.
+            `True` if the encoder is supported, `False` otherwise.
+        Raises:
+            TimeoutError: If the request times out.
         """
         return await self._invoke_method_async(
             "is_supported_encoder", {"encoder": encoder}, timeout=timeout
@@ -184,7 +206,9 @@ class AudioRecorder(ft.Service):
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            dict: A dictionary of available input devices.
+            A list of available input devices.
+        Raises:
+            TimeoutError: If the request times out.
         """
         r = await self._invoke_method_async("get_input_devices", timeout=timeout)
         return [
@@ -198,6 +222,8 @@ class AudioRecorder(ft.Service):
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
         Returns:
-            bool: `True` if the app has permission, `False` otherwise.
+            `True` if the app has permission, `False` otherwise.
+        Raises:
+            TimeoutError: If the request times out.
         """
         return await self._invoke_method_async("has_permission", timeout=timeout)
