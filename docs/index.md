@@ -4,7 +4,7 @@
 [![downloads](https://static.pepy.tech/badge/flet-audio-recorder/month)](https://pepy.tech/project/flet-audio-recorder)
 [![license](https://img.shields.io/github/license/flet-dev/flet-audio-recorder.svg)](https://github.com/flet-dev/flet-audio-recorder/blob/main/LICENSE)
 
-Adds audio recording support to Flet apps.
+Adds audio recording support to [Flet](https://flet.dev) apps.
 
 It is based on the [record](https://pub.dev/packages/record) Flutter package.
 
