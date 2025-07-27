@@ -290,7 +290,7 @@ class AudioRecorderConfiguration:
 
     suppress_noise: bool = False
     """
-    The recorder will try to negates the input
+    The recorder will try to negate the input
     noise (if available on the device).
 
     Recording volume may be lowered by using this.
