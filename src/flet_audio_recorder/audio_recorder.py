@@ -1,6 +1,6 @@
 import asyncio
 from dataclasses import field
-from typing import List, Optional
+from typing import Optional
 
 import flet as ft
 
@@ -19,11 +19,14 @@ class AudioRecorder(ft.Service):
     """
     A control that allows you to record audio from your device.
 
-    This control can record audio using different audio encoders and also allows configuration
-    of various audio recording parameters such as noise suppression, echo cancellation, and more.
+    This control can record audio using different
+    audio encoders and also allows configuration
+    of various audio recording parameters such as
+    noise suppression, echo cancellation, and more.
 
     Note:
-        This control is non-visual and should be added to `Page.services` list before it can be used.
+        This control is non-visual and should be added to
+            [`Page.services`][flet.Page.services] list before it can be used.
     """
 
     configuration: AudioRecorderConfiguration = field(
@@ -33,13 +36,9 @@ class AudioRecorder(ft.Service):
     The default configuration of the audio recorder.
     """
 
-    on_state_change: ft.OptionalEventHandler[
-        AudioRecorderStateChangeEvent["AudioRecorder"]
-    ] = None
+    on_state_change: Optional[ft.EventHandler[AudioRecorderStateChangeEvent]] = None
     """
     Event handler that is called when the state of the audio recorder changes.
-    
-    Event handler argument is of type [`AudioRecorderStateChangeEvent`][(p).].
     """
 
     async def start_recording_async(
@@ -59,14 +58,16 @@ class AudioRecorder(ft.Service):
             configuration: The configuration for the audio recorder.
                 If `None`, the `AudioRecorder.configuration` will be used.
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             `True` if recording was successfully started, `False` otherwise.
+
         Raises:
             TimeoutError: If the request times out.
         """
-        assert (
-            self.page.web or output_path
-        ), "output_path must be provided on platforms other than web"
+        assert self.page.web or output_path, (
+            "output_path must be provided on platforms other than web"
+        )
         return await self._invoke_method_async(
             method_name="start_recording",
             arguments={
@@ -84,21 +85,27 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             `True` if the recorder is currently recording, `False` otherwise.
+
         Raises:
             TimeoutError: If the request times out.
         """
         return await self._invoke_method_async("is_recording", timeout=timeout)
 
-    async def stop_recording_async(self, timeout: Optional[float] = 10) -> Optional[str]:
+    async def stop_recording_async(
+        self, timeout: Optional[float] = 10
+    ) -> Optional[str]:
         """
         Stops the audio recording and optionally returns the path to the saved file.
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             The file path where the audio was saved or `None` if not applicable.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -110,6 +117,7 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -121,6 +129,7 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -132,6 +141,7 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -143,6 +153,7 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -154,6 +165,7 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -165,6 +177,7 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -176,22 +189,28 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             `True` if the recorder is paused, `False` otherwise.
+
         Raises:
             TimeoutError: If the request times out.
         """
         return await self._invoke_method_async("is_paused", timeout=timeout)
 
-    async def is_supported_encoder_async(self, encoder: AudioEncoder, timeout: Optional[float] = 10) -> bool:
+    async def is_supported_encoder_async(
+        self, encoder: AudioEncoder, timeout: Optional[float] = 10
+    ) -> bool:
         """
         Checks if the given audio encoder is supported by the recorder.
 
         Args:
             encoder: The audio encoder to check.
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             `True` if the encoder is supported, `False` otherwise.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -199,14 +218,18 @@ class AudioRecorder(ft.Service):
             "is_supported_encoder", {"encoder": encoder}, timeout=timeout
         )
 
-    async def get_input_devices_async(self, timeout: Optional[float] = 10) -> List[InputDevice]:
+    async def get_input_devices_async(
+        self, timeout: Optional[float] = 10
+    ) -> list[InputDevice]:
         """
         Retrieves the available input devices for recording.
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             A list of available input devices.
+
         Raises:
             TimeoutError: If the request times out.
         """
@@ -221,8 +244,10 @@ class AudioRecorder(ft.Service):
 
         Args:
             timeout: The maximum amount of time (in seconds) to wait for a response.
+
         Returns:
             `True` if the app has permission, `False` otherwise.
+
         Raises:
             TimeoutError: If the request times out.
         """
