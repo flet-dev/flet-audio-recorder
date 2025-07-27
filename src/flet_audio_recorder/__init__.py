@@ -10,3 +10,16 @@ from .types import (
     IosAudioCategoryOption,
     IosRecorderConfiguration,
 )
+
+__all__ = [
+    "AndroidAudioSource",
+    "AndroidRecorderConfiguration",
+    "AudioEncoder",
+    "AudioRecorder",
+    "AudioRecorderConfiguration",
+    "AudioRecorderState",
+    "AudioRecorderStateChangeEvent",
+    "InputDevice",
+    "IosAudioCategoryOption",
+    "IosRecorderConfiguration",
+]

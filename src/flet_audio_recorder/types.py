@@ -1,16 +1,19 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
+from typing import TYPE_CHECKING, Optional
 
 import flet as ft
 
+if TYPE_CHECKING:
+    from .audio_recorder import AudioRecorder  # noqa
+
 __all__ = [
-    "AudioRecorderState",
-    "AudioEncoder",
-    "AudioRecorderStateChangeEvent",
-    "AudioRecorderConfiguration",
     "AndroidAudioSource",
     "AndroidRecorderConfiguration",
+    "AudioEncoder",
+    "AudioRecorderConfiguration",
+    "AudioRecorderState",
+    "AudioRecorderStateChangeEvent",
     "InputDevice",
     "IosAudioCategoryOption",
     "IosRecorderConfiguration",
@@ -31,7 +34,7 @@ class AudioRecorderState(Enum):
 
 
 @dataclass
-class AudioRecorderStateChangeEvent(ft.Event[ft.EventControlType]):
+class AudioRecorderStateChangeEvent(ft.Event["AudioRecorder"]):
     state: AudioRecorderState
     """The new state of the audio recorder."""
 
@@ -43,42 +46,43 @@ class AudioEncoder(Enum):
 
     AACLC = "aacLc"
     """
-    Advanced Audio Codec Low Complexity. 
+    Advanced Audio Codec Low Complexity.
     A commonly used encoder for streaming and general audio recording.
     """
 
     AACELD = "aacEld"
     """
-    Advanced Audio Codec Enhanced Low Delay. 
+    Advanced Audio Codec Enhanced Low Delay.
     Suitable for low-latency applications like VoIP.
     """
 
     AACHE = "aacHe"
     """
-    Advanced Audio Codec High Efficiency. 
+    Advanced Audio Codec High Efficiency.
     Optimized for high-quality audio at lower bit rates.
     """
 
     AMRNB = "amrNb"
     """
-    Adaptive Multi-Rate Narrow Band. 
+    Adaptive Multi-Rate Narrow Band.
     Used for speech audio in mobile communication.
     """
 
     AMRWB = "amrWb"
     """
-    Adaptive Multi-Rate Wide Band. 
+    Adaptive Multi-Rate Wide Band.
     Used for higher-quality speech audio.
     """
 
     OPUS = "opus"
     """
-    A codec designed for both speech and audio applications, known for its versatility.
+    A codec designed for both speech and audio applications,
+    known for its versatility.
     """
 
     FLAC = "flac"
     """
-    Free Lossless Audio Codec. 
+    Free Lossless Audio Codec.
     Provides high-quality lossless audio compression.
     """
 
@@ -113,7 +117,7 @@ class AndroidAudioSource(Enum):
 
     CAMCORDER = "camcorder"
     """
-    Microphone audio source tuned for video recording, 
+    Microphone audio source tuned for video recording,
     with the same orientation as the camera, if available.
     """
 
@@ -128,13 +132,13 @@ class AndroidAudioSource(Enum):
 
     UNPROCESSED = "unprocessed"
     """
-    Microphone audio source tuned for unprocessed (raw) sound if available, 
+    Microphone audio source tuned for unprocessed (raw) sound if available,
     behaves like `DEFAULT_SOURCE` otherwise.
     """
 
     VOICE_PERFORMANCE = "voicePerformance"
     """
-    Source for capturing audio meant to be processed in real time 
+    Source for capturing audio meant to be processed in real time
     and played back for live performance (e.g karaoke).
     """
 
@@ -146,15 +150,15 @@ class AndroidRecorderConfiguration:
     use_legacy: bool = False
     """
     Whether to use the Android MediaRecorder.
-    
-    While advanced recorder (the default) unlocks additionnal features, 
+
+    While advanced recorder (the default) unlocks additionnal features,
     the legacy recorder is stability oriented.
     """
 
     mute_audio: bool = False
     """
     Whether to mute all audio streams like alarms, music, ring, etc.
-    
+
     This is useful when you want to record audio without any background noise.
     The streams are restored to their previous state after recording is stopped
     and will stay at current state on pause/resume.
@@ -168,11 +172,14 @@ class AndroidRecorderConfiguration:
     audio_source: AndroidAudioSource = AndroidAudioSource.DEFAULT_SOURCE
     """
     Defines the audio source.
-    
-    An audio source defines both a default physical source of audio signal, and a recording configuration.
+
+    An audio source defines both a default physical source of audio signal,
+    and a recording configuration.
     Some effects are available or not depending on this source.
-    
-    Most of the time, you should use `AndroidAudioSource.DEFAULT_SOURCE` or `AndroidAudioSource.MIC`.
+
+    Most of the time, you should use
+    [`AndroidAudioSource.DEFAULT_SOURCE`][(p).] or
+    [`AndroidAudioSource.MIC`][(p).].
     """
 
 
@@ -185,7 +192,7 @@ class IosAudioCategoryOption(Enum):
 
     MIX_WITH_OTHERS = "mixWithOthers"
     """
-    Whether audio from this session mixes with audio 
+    Whether audio from this session mixes with audio
     from active sessions in other audio apps.
     """
 
@@ -207,30 +214,33 @@ class IosAudioCategoryOption(Enum):
     INTERRUPT_SPOKEN_AUDIO_AND_MIX_WITH_OTHERS = "interruptSpokenAudioAndMixWithOthers"
     """
     Pause spoken audio content from other sessions when your app plays its audio.
-    
+
     Available from iOS 9.0.
     """
 
     ALLOW_BLUETOOTH_A2DP = "allowBluetoothA2DP"
     """
-    Stream audio from this session to Bluetooth devices 
+    Stream audio from this session to Bluetooth devices
     that support the Advanced Audio Distribution Profile (A2DP).
-    
-    Available from iOS 10.0.
+
+    Note:
+        Available from iOS 10.0.
     """
 
     ALLOW_AIRPLAY = "allowAirPlay"
     """
     Stream audio from this session to AirPlay devices.
-    
-    Available from iOS 10.0.
+
+    Note:
+        Available from iOS 10.0.
     """
 
     OVERRIDE_MUTED_MICROPHONE_INTERRUPTION = "overrideMutedMicrophoneInterruption"
     """
     System interrupts the audio session when it mutes the built-in microphone.
-    
-    Available from iOS 14.5.
+
+    Note:
+        Available from iOS 14.5.
     """
 
 
@@ -238,7 +248,7 @@ class IosAudioCategoryOption(Enum):
 class IosRecorderConfiguration:
     """iOS specific configuration for recording."""
 
-    options: List[IosAudioCategoryOption] = field(
+    options: list[IosAudioCategoryOption] = field(
         default_factory=lambda: [
             IosAudioCategoryOption.DEFAULT_TO_SPEAKER,
             IosAudioCategoryOption.ALLOW_BLUETOOTH,
@@ -252,8 +262,9 @@ class IosRecorderConfiguration:
     manage_audio_session: bool = True
     """
     Whether to manage the shared AVAudioSession.
-    
-    Set this to `false` if another plugin is already managing the AVAudioSession.
+
+    Set this to `False` if another plugin is
+    already managing the AVAudioSession.
     """
 
 
@@ -279,21 +290,22 @@ class AudioRecorderConfiguration:
 
     suppress_noise: bool = False
     """
-    The recorder will try to negates the input noise (if available on the device).
-    
+    The recorder will try to negates the input
+    noise (if available on the device).
+
     Recording volume may be lowered by using this.
     """
 
     cancel_echo: bool = False
     """
     The recorder will try to reduce echo (if available on the device).
-    
+
     Recording volume may be lowered by using this.
     """
 
     auto_gain: bool = False
     """
-    The recorder will try to auto adjust recording volume in a 
+    The recorder will try to auto adjust recording volume in a
     limited range (if available on the device).
 
     Recording volume may be lowered by using this.
@@ -301,8 +313,12 @@ class AudioRecorderConfiguration:
 
     channels: int = 2
     """
-    The numbers of channels for the recording: `1` = mono, `2` = stereo
-    Most platforms only accept 2 at most.
+    The numbers of channels for the recording.
+
+    - `1` for mono
+    - `2` for stereo
+
+    Most platforms only accept at most 2 channels.
     """
 
     sample_rate: int = 44100
@@ -317,7 +333,8 @@ class AudioRecorderConfiguration:
 
     device: Optional[InputDevice] = None
     """
-    The device to be used for recording. 
+    The device to be used for recording.
+
     If `None`, default device will be selected.
     """
 
