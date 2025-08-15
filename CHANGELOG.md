@@ -30,16 +30,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Recording configuration properties (`audio_encoder`, `suppress_noise`, `cancel_echo`, `auto_gain`, `channels_num`, `sample_rate`, `bit_rate`) are now grouped under `configuration: AudioRecorderConfiguration`
 - Event `on_state_changed` renamed to `on_state_change`
 - In all methods, parameter `wait_timeout` was renamed to `timeout`.
-- The following sync methods were removed from `AudioRecorder` (use corresponding async methods instead):
-    - `is_recording` → `is_recording_async`
-    - `stop_recording` → `stop_recording_async`
-    - `cancel_recording` → `cancel_recording_async`
-    - `resume_recording` → `resume_recording_async`
-    - `pause_recording` → `pause_recording_async`
-    - `is_paused` → `is_paused_async`
-    - `is_supported_encoder` → `is_supported_encoder_async`
-    - `get_input_devices` → `get_input_devices_async`
-    - `has_permission` → `has_permission_async`
+- The following `AudioRecorder` sync methods were made [`async`](https://docs.python.org/3/library/asyncio.html):
+    - `is_recording`
+    - `stop_recording`
+    - `cancel_recording`
+    - `resume_recording`
+    - `pause_recording`
+    - `is_paused`
+    - `is_supported_encoder`
+    - `get_input_devices`
+    - `has_permission`
 
 ## [0.1.0] - 2025-01-15
 

@@ -13,38 +13,38 @@ def main(page: ft.Page):
         page.show_dialog(ft.SnackBar(ft.Text(message)))
 
     async def handle_start_recording(e):
-        show_snackbar(f"Starting recording...")
-        await audio_rec.start_recording_async(output_path=path)
+        show_snackbar("Starting recording...")
+        await audio_rec.start_recording(output_path=path)
 
     async def handle_stop_recording(e):
-        output_path = await audio_rec.stop_recording_async()
+        output_path = await audio_rec.stop_recording()
         show_snackbar(f"Stopped recording. Output Path: {output_path}")
         if page.web and output_path is not None:
-            page.launch_url(output_path)
+            await page.launch_url(output_path)
 
     async def handle_list_devices(e):
-        o = await audio_rec.get_input_devices_async()
+        o = await audio_rec.get_input_devices()
         show_snackbar(f"Input Devices: {', '.join([d.label for d in o])}")
 
     async def handle_has_permission(e):
         try:
-            status = await audio_rec.has_permission_async()
+            status = await audio_rec.has_permission()
             show_snackbar(f"Audio Recording Permission status: {status}")
         except Exception as e:
             show_snackbar(f"Error checking permission: {e}")
 
     async def handle_pause(e):
-        print(f"isRecording: {await audio_rec.is_recording_async()}")
-        if await audio_rec.is_recording_async():
-            await audio_rec.pause_recording_async()
+        print(f"isRecording: {await audio_rec.is_recording()}")
+        if await audio_rec.is_recording():
+            await audio_rec.pause_recording()
 
     async def handle_resume(e):
-        print(f"isPaused: {await audio_rec.is_paused_async()}")
-        if await audio_rec.is_paused_async():
-            await audio_rec.resume_recording_async()
+        print(f"isPaused: {await audio_rec.is_paused()}")
+        if await audio_rec.is_paused():
+            await audio_rec.resume_recording()
 
     async def handle_audio_encoder_test(e):
-        supports_wav = await audio_rec.is_supported_encoder_async(far.AudioEncoder.WAV)
+        supports_wav = await audio_rec.is_supported_encoder(far.AudioEncoder.WAV)
 
     audio_rec = far.AudioRecorder(
         configuration=far.AudioRecorderConfiguration(encoder=far.AudioEncoder.WAV),
