@@ -25,7 +25,9 @@ This package supports the following platforms:
 | Android  |     ✅     |
 | Web      |     ✅     |
 
-## Installation
+## Usage
+
+### Installation
 
 To install the `flet-audio-recorder` package and add it to your project dependencies:
 
@@ -48,6 +50,6 @@ To install the `flet-audio-recorder` package and add it to your project dependen
 > [!NOTE]
 > On Linux, encoding is provided by [fmedia](https://stsaz.github.io/fmedia/) which must be installed separately.
 
-## Examples
+### Examples
 
-For examples, see [this](./examples)
+For examples, see [these](./examples).
