@@ -1,4 +1,3 @@
-import asyncio
 from dataclasses import field
 from typing import Optional
 
@@ -41,7 +40,7 @@ class AudioRecorder(ft.Service):
     Event handler that is called when the state of the audio recorder changes.
     """
 
-    async def start_recording_async(
+    async def start_recording(
         self,
         output_path: Optional[str] = None,
         configuration: Optional[AudioRecorderConfiguration] = None,
@@ -68,7 +67,7 @@ class AudioRecorder(ft.Service):
         assert self.page.web or output_path, (
             "output_path must be provided on platforms other than web"
         )
-        return await self._invoke_method_async(
+        return await self._invoke_method(
             method_name="start_recording",
             arguments={
                 "output_path": output_path,
@@ -79,7 +78,7 @@ class AudioRecorder(ft.Service):
             timeout=timeout,
         )
 
-    async def is_recording_async(self, timeout: Optional[float] = 10) -> bool:
+    async def is_recording(self, timeout: Optional[float] = 10) -> bool:
         """
         Checks whether the audio recorder is currently recording.
 
@@ -92,11 +91,9 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async("is_recording", timeout=timeout)
+        return await self._invoke_method("is_recording", timeout=timeout)
 
-    async def stop_recording_async(
-        self, timeout: Optional[float] = 10
-    ) -> Optional[str]:
+    async def stop_recording(self, timeout: Optional[float] = 10) -> Optional[str]:
         """
         Stops the audio recording and optionally returns the path to the saved file.
 
@@ -109,9 +106,9 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async("stop_recording", timeout=timeout)
+        return await self._invoke_method("stop_recording", timeout=timeout)
 
-    async def cancel_recording_async(self, timeout: Optional[float] = 10):
+    async def cancel_recording(self, timeout: Optional[float] = 10):
         """
         Cancels the current audio recording.
 
@@ -121,21 +118,9 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("cancel_recording", timeout=timeout)
+        await self._invoke_method("cancel_recording", timeout=timeout)
 
-    def cancel_recording(self, timeout: Optional[float] = 10):
-        """
-        Cancels the current audio recording.
-
-        Args:
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.cancel_recording_async(timeout=timeout))
-
-    async def resume_recording_async(self, timeout: Optional[float] = 10):
+    async def resume_recording(self, timeout: Optional[float] = 10):
         """
         Resumes a paused audio recording.
 
@@ -145,21 +130,9 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("resume_recording", timeout=timeout)
+        await self._invoke_method("resume_recording", timeout=timeout)
 
-    def resume_recording(self, timeout: Optional[float] = 10):
-        """
-        Resumes a paused audio recording.
-
-        Args:
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.resume_recording_async(timeout=timeout))
-
-    async def pause_recording_async(self, timeout: Optional[float] = 10):
+    async def pause_recording(self, timeout: Optional[float] = 10):
         """
         Pauses the ongoing audio recording.
 
@@ -169,21 +142,9 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        await self._invoke_method_async("pause_recording", timeout=timeout)
+        await self._invoke_method("pause_recording", timeout=timeout)
 
-    def pause_recording(self, timeout: Optional[float] = 10):
-        """
-        Pauses the ongoing audio recording.
-
-        Args:
-            timeout: The maximum amount of time (in seconds) to wait for a response.
-
-        Raises:
-            TimeoutError: If the request times out.
-        """
-        asyncio.create_task(self.pause_recording_async(timeout=timeout))
-
-    async def is_paused_async(self, timeout: Optional[float] = 10) -> bool:
+    async def is_paused(self, timeout: Optional[float] = 10) -> bool:
         """
         Checks whether the audio recorder is currently paused.
 
@@ -196,9 +157,9 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async("is_paused", timeout=timeout)
+        return await self._invoke_method("is_paused", timeout=timeout)
 
-    async def is_supported_encoder_async(
+    async def is_supported_encoder(
         self, encoder: AudioEncoder, timeout: Optional[float] = 10
     ) -> bool:
         """
@@ -214,11 +175,11 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async(
+        return await self._invoke_method(
             "is_supported_encoder", {"encoder": encoder}, timeout=timeout
         )
 
-    async def get_input_devices_async(
+    async def get_input_devices(
         self, timeout: Optional[float] = 10
     ) -> list[InputDevice]:
         """
@@ -233,12 +194,12 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        r = await self._invoke_method_async("get_input_devices", timeout=timeout)
+        r = await self._invoke_method("get_input_devices", timeout=timeout)
         return [
             InputDevice(id=device_id, label=label) for device_id, label in r.items()
         ]
 
-    async def has_permission_async(self, timeout: Optional[float] = 10) -> bool:
+    async def has_permission(self, timeout: Optional[float] = 10) -> bool:
         """
         Checks if the app has permission to record audio.
 
@@ -251,4 +212,4 @@ class AudioRecorder(ft.Service):
         Raises:
             TimeoutError: If the request times out.
         """
-        return await self._invoke_method_async("has_permission", timeout=timeout)
+        return await self._invoke_method("has_permission", timeout=timeout)
